@@ -2,10 +2,9 @@ import usersService from "../service/user";
 
 exports.register = (req, res, next) => {
   // Validation area
-  const { firstName, lastName, email, password } = req.body;
+  const { fullName, email, password } = req.body;
   const data = {
-    firstName: firstName,
-    lastName: lastName,
+    fullName: fullName,
     email: email,
     password: password,
   };
