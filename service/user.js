@@ -1,34 +1,49 @@
 import bcrypt from 'bcryptjs';
-import { pool } from '../config/pool';
 import jwt from 'jsonwebtoken';
+
+import { users } from '../models';
 import { secret, expireTime } from '../config/jwt.config';
+
 
 exports.register = async (data, callback) => {
   const { fullName, email, password } = data;
-  const salt = await bcrypt.genSalt(10);
-  const userPassword = await bcrypt.hash(password, salt);
-  pool.query(
-    `INSERT INTO public.users (fullname, email, password) VALUES ($1, $2, $3)`,
-    [fullName, email, userPassword],
-    (error, results, fields) => {
-      if (error) {
-        return callback(error);
-      }
+  // userData.isNewRecord
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
+    const userData = {
+      fullname: fullName,
+      email: email,
+      password: encryptedPassword
+    };
+    const createUser = await users.create(userData);
+
+    if (createUser?.isNewRecord) {
       return callback(null, `Registration successful`);
     }
-  );
+  } catch(error) {
+    return callback(error);
+  }
+  // pool.query(
+  //   `INSERT INTO public.users (fullname, email, password) VALUES ($1, $2, $3)`,
+  //   [fullName, email, userPassword],
+  //   (error, results, fields) => {
+  //     if (error) {
+  //       return callback(error);
+  //     }
+  //     return callback(null, `Registration successful`);
+  //   }
+  // );
 };
 
 exports.login = async (data, callback) => {
   const { email, password } = data;
-  const query = `SELECT * FROM users WHERE email = $1`;
-  const values = [email];
   try {
-    const { rows } = await pool.query(query, values);
-    if (rows.length > 0) {
-      const isPasswordValid = await bcrypt.compare(password, rows[0].password);
-      const { fullname, email } = rows[0];
+    const userData = await users.findByPk(email);
+    if (userData?.dataValues) {
+      const isPasswordValid = await bcrypt.compare(password, userData?.dataValues?.password);
       if (isPasswordValid) {
+        const { fullname, email } = userData?.dataValues;
         const token = jwt.sign({
           email: email,
           fullName: fullname
@@ -38,5 +53,5 @@ exports.login = async (data, callback) => {
     } else return callback('error', 404, 'User not found.');
   } catch (error) {
     return callback('error', 500, 'Something went wrong.');
-  };
+  }
 };

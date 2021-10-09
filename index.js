@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import userRoutes from'./routes/user';
+import contractRoutes from './routes/contract';
 
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use('/test', (req, res) => {
 });
 
 app.use('/user', userRoutes);
+app.use('/contract', contractRoutes);
 
 app.listen(PORT, () => {
   console.log(`Application started on PORT: ${PORT}`)

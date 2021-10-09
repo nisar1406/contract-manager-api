@@ -11,7 +11,7 @@ exports.register = (req, res, next) => {
   usersService.register(data, (error, results) => {
     if (error) {
       console.log(error);
-      if(Number(error.code) === 23505) return res.status(409).send({ success: 0, message: "Email already exist." });
+      if(Number(error?.original?.code) === 23505) return res.status(409).send({ success: 0, message: "Email already exist." });
       else return res.status(400).send({ success: 0, message: "Bad request" });
     }
     return res.status(201).send({
