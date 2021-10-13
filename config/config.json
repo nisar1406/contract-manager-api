@@ -1,20 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1"
+    "username": "pamptgfk",
+    "password": "Ul24cXu8hRcYi2ROo1uTTdvVaik80A_H",
+    "database": "pamptgfk",
+    "host": "fanny.db.elephantsql.com",
+    "dialect": "postgres"
   }
 }
