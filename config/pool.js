@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { development } from './config.json';
+import { development } from './config.js';
 
 const { username, password, database, host, port } = development;
 /** Connection pool creation - START */

@@ -24,16 +24,6 @@ exports.register = async (data, callback) => {
   } catch(error) {
     return callback(error);
   }
-  // pool.query(
-  //   `INSERT INTO public.users (fullname, email, password) VALUES ($1, $2, $3)`,
-  //   [fullName, email, userPassword],
-  //   (error, results, fields) => {
-  //     if (error) {
-  //       return callback(error);
-  //     }
-  //     return callback(null, `Registration successful`);
-  //   }
-  // );
 };
 
 exports.login = async (data, callback) => {

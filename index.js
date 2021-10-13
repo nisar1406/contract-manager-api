@@ -5,7 +5,7 @@ import userRoutes from'./routes/user';
 import contractRoutes from './routes/contract';
 
 require('dotenv').config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 const app = express();
 
