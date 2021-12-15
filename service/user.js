@@ -18,7 +18,7 @@ exports.register = async (data, callback) => {
     };
     const createUser = await users.create(userData);
 
-    if (createUser?.isNewRecord) {
+    if (createUser?._options?.isNewRecord) {
       return callback(null, `Registration successful`);
     }
   } catch(error) {
