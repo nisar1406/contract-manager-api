@@ -17,7 +17,7 @@ exports.createContract = (req, res, next) => {
       return res.status(400).send({ success: 0, message: "Something went wrong, please try again." });
     }
     return res.status(200).send({
-      success: 1,
+      success: true,
       data: results,
     });
   });
@@ -34,14 +34,14 @@ exports.getContractByUserEmail = (req, res, next) => {
       return res.status(400).send({ success: 0, message: "Something went wrong, please try again." });
     }
     return res.status(200).send({
-      success: 1,
+      success: true,
       data: results,
     });
   })
 };
 
 
-exports.deleteContractById= (req, res, next) => {
+exports.deleteContractById = (req, res, next) => {
   const { contractId } = req?.params;
   const data = {
     id: contractId
@@ -52,7 +52,7 @@ exports.deleteContractById= (req, res, next) => {
       return res.status(error).send({ success: 0, message: results });
     }
     return res.status(200).send({
-      success: 1,
+      success: true,
       data: results,
     });
   })
@@ -67,7 +67,7 @@ exports.getAllContracts = (req, res, next) => {
       return res.status(400).send({ success: 0, message: "Something went wrong, please try again." });
     }
     return res.status(200).send({
-      success: 1,
+      success: true,
       data: results,
     });
   })
